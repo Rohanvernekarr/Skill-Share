@@ -1,28 +1,27 @@
-'use client';
+'use client'
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useProfile } from '@/hooks/useProfile';
+import { supabase } from '@/lib/supabaseClient';
 
-export default function DashboardPage() {
-  const { profile, loading } = useProfile();
+export default function Dashboard() {
+  const [user, setUser] = useState<any>(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading) {
-      if (!profile) {
-        router.push('/verify-email');
-      } else if (!profile.email_confirmed_at) {
-        router.push('/verify-email');
-      }
-    }
-  }, [profile, loading, router]);
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (!user) router.replace('/login');
+      else setUser(user);
+    });
+  }, [router]);
 
-  if (loading || !profile) return <p>Loading...</p>;
+  if (!user) return <p>Loading...</p>;
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Welcome, {profile.username}!</h1>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Welcome, {user.user_metadata.full_name || user.email}</h1>
+      <p>Your email: {user.email}</p>
+      <p><a className="text-blue-500" href="/profile/edit">Edit Profile</a></p>
     </div>
   );
 }

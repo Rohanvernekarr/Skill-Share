@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
+import { User } from '@supabase/supabase-js';
+import { BookOpenIcon, AcademicCapIcon, InformationCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 
 export default function Navbar() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -33,37 +35,54 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full bg-white shadow-sm sticky top-0 z-50">
+    <nav className="w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
-        <Link href="/" className="text-xl font-bold text-zinc-600">
-          SkillShare Hub
+        <Link 
+          href="/" 
+          className="text-2xl font-bold bg-gradient-to-r from-indigo-300 to-blue-400 bg-clip-text text-transparent"
+        >
+          SkillShare 
         </Link>
 
-        <div className="space-x-4">
-          <Link href="/learn" className="text-gray-600 hover:text-zinc-600">Learn</Link>
-          <Link href="/teach" className="text-gray-600 hover:text-zinc-600">Teach</Link>
-          <Link href="/about" className="text-gray-600 hover:text-zinc-600">About</Link>
+        <div className="flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-6">
+            <NavLink href="/learn" icon={<BookOpenIcon className="h-5 w-5" />} label="Learn" />
+            <NavLink href="/teach" icon={<AcademicCapIcon className="h-5 w-5" />} label="Teach" />
+            <NavLink href="/about" icon={<InformationCircleIcon className="h-5 w-5" />} label="About" />
+          </div>
 
-          {user ? (
-            <>
-              <Link href="/profile" className="text-gray-600 hover:text-zinc-600">Profile</Link>
-              <button
-                onClick={handleLogout}
-                className="px-3 py-1 border rounded text-zinc-600 border-red-600 hover:bg-red-600 hover:text-white transition"
+          <div className="flex items-center gap-4 ml-4">
+            {user ? (
+              <>
+                <NavLink href="/profile" icon={<UserCircleIcon className="h-5 w-5" />} label="Profile" />
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-red-600 to-orange-500 text-white text-sm font-medium hover:from-red-700 hover:to-orange-600 transition-all transform hover:scale-[1.02]"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-blue-500 text-white text-sm font-medium hover:from-indigo-700 hover:to-blue-600 transition-all transform hover:scale-[1.02]"
               >
-                Logout
-              </button>
-            </>
-          ) : (
-            <Link
-              href="/login"
-              className="px-3 py-1 border rounded text-zinc-600 border-indigo-600 hover:bg-zinc-600 hover:text-white transition"
-            >
-              Login
-            </Link>
-          )}
+                Get Started
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </nav>
   );
 }
+
+const NavLink = ({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) => (
+  <Link
+    href={href}
+    className="flex items-center gap-2 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-colors"
+  >
+    {icon}
+    <span className="text-sm font-medium">{label}</span>
+  </Link>
+);
