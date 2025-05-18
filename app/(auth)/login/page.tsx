@@ -40,12 +40,12 @@ export default function LoginPage() {
 
   return (
     <AuthLayout>
-      <div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-8 shadow-2xl shadow-indigo-50/50 dark:bg-slate-900">
+      <div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-8 shadow-2xl shadow-zinc-50/50 dark:bg-zinc-900">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-indigo-100">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-zinc-100">
             Welcome Back
           </h2>
-          <p className="mt-2 text-sm text-gray-600 dark:text-indigo-200">
+          <p className="mt-2 text-sm text-gray-600 dark:text-zinc-200">
             Sign in to your account
           </p>
         </div>
@@ -57,7 +57,7 @@ export default function LoginPage() {
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="rounded-lg border-slate-200 bg-slate-50 px-4 py-3 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800"
+              className="rounded-lg border-zinc-200 bg-zinc-50 px-4 py-3 text-sm focus:border-zinc-500 focus:ring-2 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-800"
               autoComplete="email"
             />
 
@@ -66,7 +66,7 @@ export default function LoginPage() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="rounded-lg border-slate-200 bg-slate-50 px-4 py-3 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800"
+              className="rounded-lg border-zinc-200 bg-zinc-50 px-4 py-3 text-sm focus:border-zinc-500 focus:ring-2 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-800"
               autoComplete="current-password"
             />
           </div>
@@ -94,7 +94,7 @@ export default function LoginPage() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full transform rounded-xl bg-gradient-to-r from-indigo-600 to-blue-500 px-4 py-3 font-medium text-white transition-all hover:from-indigo-700 hover:to-blue-600 hover:shadow-lg active:scale-95"
+            className="w-full transform rounded-xl bg-gradient-to-r from-zinc-600 to-blue-500 px-4 py-3 font-medium text-white transition-all hover:from-zinc-700 hover:to-blue-600 hover:shadow-lg active:scale-95"
           >
             {loading ? (
               <div className="flex items-center justify-center">
@@ -109,10 +109,10 @@ export default function LoginPage() {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-slate-200 dark:border-slate-700"></div>
+            <div className="w-full border-t border-zinc-200 dark:border-zinc-700"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="bg-white px-2 text-slate-500 dark:bg-slate-900 dark:text-slate-400">
+            <span className="bg-white px-2 text-zinc-500 dark:bg-zinc-900 dark:text-zinc-400">
               Or continue with
             </span>
           </div>
@@ -122,7 +122,7 @@ export default function LoginPage() {
           <button
             onClick={() => handleOAuthLogin('github')}
             disabled={loading}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition-all hover:bg-slate-50 hover:shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm font-medium text-zinc-700 transition-all hover:bg-zinc-50 hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
           >
             <svg
               className="h-5 w-5"
@@ -142,7 +142,7 @@ export default function LoginPage() {
           <button
             onClick={() => handleOAuthLogin('google')}
             disabled={loading}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition-all hover:bg-slate-50 hover:shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm font-medium text-zinc-700 transition-all hover:bg-zinc-50 hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -158,11 +158,11 @@ export default function LoginPage() {
           </button>
         </div>
 
-        <p className="text-center text-sm text-slate-600 dark:text-slate-400">
+        <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
           Don't have an account?{' '}
           <a
             href="/signup"
-            className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+            className="font-medium text-zinc-600 hover:text-zinc-500 dark:text-zinc-400 dark:hover:text-zinc-300"
           >
             Sign up
           </a>

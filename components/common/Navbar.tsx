@@ -35,11 +35,11 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50">
+    <nav className="w-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-700 sticky top-0 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
         <Link 
           href="/" 
-          className="text-2xl font-bold bg-gradient-to-r from-indigo-300 to-blue-400 bg-clip-text text-transparent"
+          className="text-2xl font-bold bg-gradient-to-r from-zinc-300 to-blue-400 bg-clip-text text-transparent"
         >
           SkillShare 
         </Link>
@@ -65,7 +65,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-blue-500 text-white text-sm font-medium hover:from-indigo-700 hover:to-blue-600 transition-all transform hover:scale-[1.02]"
+                className="px-4 py-2 rounded-lg bg-gradient-to-r from-zinc-600 to-blue-500 text-white text-sm font-medium hover:from-zinc-700 hover:to-blue-600 transition-all transform hover:scale-[1.02]"
               >
                 Get Started
               </Link>
@@ -80,7 +80,7 @@ export default function Navbar() {
 const NavLink = ({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) => (
   <Link
     href={href}
-    className="flex items-center gap-2 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-colors"
+    className="flex items-center gap-2 text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors"
   >
     {icon}
     <span className="text-sm font-medium">{label}</span>
