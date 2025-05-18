@@ -54,7 +54,7 @@ export default function Navbar() {
           <div className="flex items-center gap-4 ml-4">
             {user ? (
               <>
-                <NavLink href="/profile" icon={<UserCircleIcon className="h-5 w-5" />} label="Profile" />
+                <NavLink href="/profile/{username}" icon={<UserCircleIcon className="h-5 w-5" />} label="Profile" />
                 <button
                   onClick={handleLogout}
                   className="px-4 py-2 rounded-lg bg-gradient-to-r from-red-600 to-orange-500 text-white text-sm font-medium hover:from-red-700 hover:to-orange-600 transition-all transform hover:scale-[1.02]"
