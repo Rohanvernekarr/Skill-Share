@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
 import { User } from '@supabase/supabase-js';
-import { BookOpenIcon, AcademicCapIcon, InformationCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import ThemeToggleButton from "@/components/common/ThemeToggleButton";
+import { BookOpenIcon, AcademicCapIcon, InformationCircleIcon, UserCircleIcon ,HomeIcon } from '@heroicons/react/24/outline';
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
@@ -39,19 +40,22 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
         <Link 
           href="/" 
-          className="text-2xl font-bold bg-gradient-to-r from-zinc-300 to-blue-400 bg-clip-text text-transparent"
+          className="text-3xl font-serif bg-gradient-to-r from-zinc-300 to-blue-400 bg-clip-text text-transparent"
         >
           SkillShare 
         </Link>
 
         <div className="flex items-center gap-6">
           <div className="hidden md:flex items-center gap-6">
+            <NavLink href="/" icon={<HomeIcon className="h-5 w-5" />} label="Home" />
             <NavLink href="/learn" icon={<BookOpenIcon className="h-5 w-5" />} label="Learn" />
             <NavLink href="/teach" icon={<AcademicCapIcon className="h-5 w-5" />} label="Teach" />
             <NavLink href="/about" icon={<InformationCircleIcon className="h-5 w-5" />} label="About" />
+            
+            
           </div>
 
-          <div className="flex items-center gap-4 ml-4">
+          <div className="flex items-center gap-4 ">
             {user ? (
               <>
                 <NavLink href="/profile/{username}" icon={<UserCircleIcon className="h-5 w-5" />} label="Profile" />

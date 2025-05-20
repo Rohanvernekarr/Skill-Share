@@ -3,45 +3,34 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 
-export function useProfile() {
-  const [profile, setProfile] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+export function useProfile({ role }: { role?: string } = {}) {
+  const [mentors, setMentors] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      setLoading(true);
-      const {
-        data: { session },
-        error: sessionError,
-      } = await supabase.auth.getSession();
+    const fetchProfiles = async () => {
+      setIsLoading(true);
+      try {
+        let query = supabase.from('profiles').select('*');
+        
+        if (role) {
+          query = query.eq('role', role);
+        }
 
-      if (sessionError || !session?.user) {
-        setProfile(null);
-        setLoading(false);
-        return;
+        const { data, error } = await query;
+
+        if (error) throw error;
+        setMentors(data || []);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+      } finally {
+        setIsLoading(false);
       }
-
-      const { data, error } = await supabase
-        .from('profiles') // 👈 your table name
-        .select('*')
-        .eq('id', session.user.id)
-        .single();
-
-      if (error) {
-        console.error('Error fetching profile:', error.message);
-        setProfile(null);
-      } else {
-        setProfile({
-          ...data,
-          email_confirmed_at: session.user.email_confirmed_at,
-          email: session.user.email,
-        });
-      }
-      setLoading(false);
     };
 
-    fetchProfile();
-  }, []);
+    fetchProfiles();
+  }, [role]);
 
-  return { profile, loading };
+  return { mentors, isLoading, error };
 }

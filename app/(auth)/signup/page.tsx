@@ -213,9 +213,9 @@ export default function SignupPage() {
           Already have an account?{' '}
           <a
             href="/login"
-            className="font-medium text-zinc-600 hover:text-zinc-500 dark:text-zinc-400 dark:hover:text-zinc-300"
+            className="font-medium text-zinc-600 hover:text-zinc-500 dark:text-zinc-300 dark:hover:text-zinc-200"
           >
-            Sign in
+            log in
           </a>
         </p>
       </div>

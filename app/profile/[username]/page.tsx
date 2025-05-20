@@ -6,6 +6,7 @@ import { ArrowPathIcon, PencilSquareIcon, MapPinIcon, UserCircleIcon, EnvelopeIc
 import  Button  from "@/components/ui/Button";
 import Link from "next/link";
 import Image from "next/image";
+import ProfileForm from "@/components/forms/ProfileForm";
 import Navbar from "@/components/common/Navbar"
 
 export default function ProfilePage() {
@@ -51,8 +52,7 @@ export default function ProfilePage() {
   const handleUpdate = async () => {
     const { error } = await supabase
       .from("profiles")
-      .update(profileData)
-      .eq("id", user.id);
+      .upsert({ ...profileData, id: user.id }); 
 
     if (!error) {
       setEditing(false);
@@ -94,12 +94,12 @@ export default function ProfilePage() {
     return (
        
         
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-zinc-50 to-white dark:from-zinc-900 dark:to-zinc-800">
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-zinc-50 to-white dark:from-zinc-900 dark:to-zinc-950">
         <div className="animate-pulse space-y-8">
-          <div className="h-32 w-32 rounded-full bg-zinc-200 dark:bg-zinc-700 mx-auto" />
+          <div className="h-32 w-32 rounded-full bg-zinc-200 dark:bg-zinc-900 mx-auto" />
           <div className="space-y-4">
-            <div className="h-6 bg-zinc-200 dark:bg-zinc-700 rounded w-48 mx-auto" />
-            <div className="h-4 bg-zinc-200 dark:bg-zinc-700 rounded w-64 mx-auto" />
+            <div className="h-6 bg-zinc-200 dark:bg-zinc-900 rounded w-48 mx-auto" />
+            <div className="h-4 bg-zinc-200 dark:bg-zinc-900 rounded w-64 mx-auto" />
           </div>
         </div>
       </div>
@@ -107,28 +107,20 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-50 to-white dark:from-zinc-900 dark:to-zinc-800">
+    <div className="min-h-screen bg-gradient-to-br from-zinc-50 to-white dark:from-zinc-900 dark:to-zinc-950">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white dark:bg-zinc-800 rounded-3xl shadow-2xl overflow-hidden">
           <div className="flex flex-col lg:flex-row">
             
             {/* Profile Sidebar */}
-            <div className="lg:w-1/3 bg-gradient-to-b from-zinc-600 to-zinc-500 dark:from-zinc-900 dark:to-zinc-800 p-8 text-center">
+            <div className="lg:w-1/3 bg-gradient-to-b from-zinc-600 to-zinc-500 dark:from-zinc-900 dark:to-zinc-900 p-8 text-center">
             
               <div className="relative group w-48 h-48 mx-auto mb-6 rounded-full border-4 border-white/20 hover:border-white/40 transition-all duration-300">
-                {profileData.avatar_url ? (
-                  <Image
-                    src={profileData.avatar_url}
-                    alt="Profile"
-                    width={192}
-                    height={192}
-                    className="rounded-full object-cover w-full h-full"
-                  />
-                ) : (
+                
                   <div className="w-full h-full rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center">
                     <UserCircleIcon className="w-24 h-24 text-zinc-400 dark:text-zinc-600" />
                   </div>
-                )}
+                
                 <label className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity">
                   <input
                     title="file"
@@ -172,7 +164,7 @@ export default function ProfilePage() {
                 </h1>
                 <Button
                   onClick={() => setEditing(true)}
-                  className="bg-zinc-600 hover:bg-zinc-700 text-white flex items-center gap-2"
+                  className="bg-zinc-800 hover:bg-zinc-700 text-white flex items-center gap-2"
                 >
                   <PencilSquareIcon className="w-5 h-5" />
                   Edit Profile
@@ -207,7 +199,7 @@ export default function ProfilePage() {
               </div>
 
               {showSuccess && (
-                <div className="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-up">
+                <div className="fixed bottom-4 right-4 bg-zinc-700 text-white px-6 py-3 rounded-lg shadow-lg animate-slide-up">
                   Profile updated successfully! 🎉
                 </div>
               )}

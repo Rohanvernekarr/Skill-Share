@@ -2,7 +2,7 @@
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[100vh] bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 py-24 px-6 text-center overflow-hidden">
+    <section className="relative min-h-[100vh] bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-950 py-24 px-6 text-center overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute -top-20 -left-20 w-96 h-96 bg-zinc-200 rounded-full blur-3xl opacity-30 dark:opacity-20"></div>
