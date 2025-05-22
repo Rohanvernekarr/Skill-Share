@@ -172,11 +172,12 @@ export default function ProfilePage() {
                
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <InfoCard
                   icon={<UserCircleIcon className="w-6 h-6" />}
                   title="Full Name"
                   value={profileData.full_name}
+                  
                 />
                 <InfoCard
                   icon={<EnvelopeIcon className="w-6 h-6" />}

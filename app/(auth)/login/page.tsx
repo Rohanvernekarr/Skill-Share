@@ -22,7 +22,7 @@ export default function LoginPage() {
     try {
       const { error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) throw error
-      router.push('/')
+      router.push('/landing')
     } catch (err: any) {
       setError(err.message || 'Login failed')
     } finally {

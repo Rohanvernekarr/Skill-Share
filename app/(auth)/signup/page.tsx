@@ -41,21 +41,43 @@ export default function SignupPage() {
       const { data, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            username: username
+          }
+        }
       })
 
       if (signUpError) throw signUpError
 
-      // 2. If sign up successful, insert username in 'profiles' table
-      // Note: You need a "profiles" table in Supabase with at least { id: uuid, username: text }
-      if (data.user) {
+      // 2. Verify the user was created and get the session
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+      if (sessionError) throw sessionError
+
+      // 3. If we have a session and user, create the profile
+      if (session?.user) {
         const { error: profileError } = await supabase
           .from('profiles')
-          .insert([{ id: data.user.id, username }])
+          .insert([
+            { 
+              id: session.user.id, 
+              username: username
+            }
+          ])
         
         if (profileError) throw profileError
+
+        // 4. Set the session to ensure auth state is updated
+        const { error: setSessionError } = await supabase.auth.setSession({
+          access_token: session.access_token,
+          refresh_token: session.refresh_token
+        })
+        
+        if (setSessionError) throw setSessionError
       }
 
-      router.push('/')
+      // 5. Force a hard refresh to ensure all components re-render with new auth state
+      window.location.href = '/landing'
     } catch (err: any) {
       setError(err.message || 'Something went wrong')
     } finally {

@@ -1,6 +1,12 @@
 'use client'
 
+import { useEffect, useState } from 'react';
+import landing from '@/app/landing/page'
+
 export default function Hero() {
+  //i want to show this page onlu when user is not logged in 
+  
+  
   return (
     <section className="relative min-h-[100vh] bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-950 py-24 px-6 text-center overflow-hidden">
       {/* Decorative elements */}
