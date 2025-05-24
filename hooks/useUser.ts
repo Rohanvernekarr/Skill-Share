@@ -7,19 +7,35 @@ export function useUser() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Get initial session
     const getUserAndSave = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       const currentUser = session?.user;
 
       if (currentUser) {
         setUser(currentUser);
-        await saveUserToDB(currentUser); // Save to DB if new
+        await saveUserToDB(currentUser);
       }
 
       setLoading(false);
     };
 
     getUserAndSave();
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session?.user) {
+        setUser(session.user);
+        await saveUserToDB(session.user);
+      } else if (event === 'SIGNED_OUT') {
+        setUser(null);
+      }
+    });
+
+    // Cleanup subscription
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   return { user, loading };

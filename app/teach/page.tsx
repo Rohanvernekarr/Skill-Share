@@ -5,8 +5,10 @@ import { skills } from "@/constants/skills";
 import { SkillTag } from "@/components/common/SkillTag";
 import  Button  from "@/components/ui/Button"; // Replace if you use another button component
 import { toast } from "sonner"; // Optional for notifications
+import { useUser } from "@/hooks/useUser" 
 
 const TeachPage = () => {
+  const { user } = useUser() // returns null if not logged in
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
   const toggleSkill = (skill: string) => {
@@ -25,6 +27,23 @@ const TeachPage = () => {
     toast.success("Skills updated successfully!");
     console.log("Saved skills:", selectedSkills);
   };
+
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-zinc-900 px-4">
+        <div className="bg-zinc-950 shadow-xl rounded-2xl p-8 max-w-sm w-full text-center">
+          <h2 className="text-2xl font-semibold text-gray-200 mb-2">Access Restricted</h2>
+          <p className="text-gray-400 mb-6">🚫 Please login to access this page.</p>
+          <a
+            href="/login"
+            className="inline-block px-5 py-2 bg-blue-400 text-white rounded-full hover:bg-blue-500 transition"
+          >
+            Go to Login
+          </a>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="max-w-5xl h-dvh mx-auto py-12 px-4">
